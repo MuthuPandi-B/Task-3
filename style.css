@@ -79,19 +79,26 @@ img {
 
 @media only screen and (max-width: 1080px){
     .card{
-     width: 100px;
-     height: 100px;
+     width: 80px;
+     height: 80px;
     }
     .scorepanel {
         margin-bottom: px;
         font-size: 10px;
+        align-items: center;
+        justify-content: center;
     }
         .gamecontainer {
+            margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(4, 100px);
-            grid-gap: 5px;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 3px;
+            align-items: center;
+            justify-content: center;
     }
-    .pipe{
-      width: 14vw;
+    h1{
+        margin-left: 5px;
+        padding-left: 10px;
     }
+   
   } 
