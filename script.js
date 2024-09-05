@@ -42,23 +42,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkForMatch() {
         if (!firstCard || !secondCard) return; // Ensure cards are not null
-
+    
         let isMatch = firstCard.dataset.name === secondCard.dataset.name;
         if (isMatch) {
             disableCards();
             score += 10;
             matches++;
             document.getElementById('score').textContent = `Score: ${score}`;
+            
             if (matches === 8) { // All pairs matched
                 stopTimer();
-                setTimeout(() => alert(`Congratulations! You won in ${time} seconds with a score of ${score}!`), 500);
-            
+                setTimeout(() => {
+                    alert(`Congratulations! You won in ${time} seconds with a score of ${score}!`);
+                    
+                    // Unflip all cards and reset the game
+                    cards.forEach(card => {
+                        card.classList.remove('flip');
+                        card.addEventListener('click', flipCard); // Make cards clickable again
+                    });
+    
+                    // Reset the score, matches, and time for the next round
+                    score = 0;
+                    matches = 0;
+                    time = 0;
+    
+                    document.getElementById('score').textContent = `Score: ${score}`;
+                    document.getElementById('timer').textContent = `Time: ${time}s`;
+    
+                    resetBoard(); // Reset the board
+                    shuffle(); // Shuffle for a new round
+                }, 500); // Delay for alert and reset
             }
-            
         } else {
             unflipCards();
         }
     }
+    
 
     function disableCards() {
         if (firstCard && secondCard) { // Ensure cards are not null
@@ -76,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 secondCard.classList.remove('flip');
             }
             resetBoard();
-        }, 1500);
+        }, 1000);
     }
 
     function resetBoard() {
@@ -112,5 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('Restart').addEventListener('click', restartGame);
     resetBoard();
-    shuffle(); // Call shuffle during initial setup
+    shuffle();// Call shuffle during initial setup
 });
